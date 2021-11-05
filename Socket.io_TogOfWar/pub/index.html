@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Tug of war</title>
+		<link href="css/styles.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+        <div id="main">
+            <div v-if="win == true">
+                <h1>You win!</h1>
+            </div>
+
+            <div v-if="win == false">
+                <h1>Tug of war</h1>
+                <div id="tugOfWarContainer">
+                    <img src="img/tugOfWarBackground.png" id="background">
+                    <img src="img/tugOfWarDogs.png" id="foreground" v-bind:style="currentDogOffset">
+                </div>
+                <div id="buttonContainer">
+                    <button type="button" id="left" v-on:click="tugLeft">Left</button>
+                    <button type="button" id="right" v-on:click="tugRight">Right</button>
+                </div>
+            </div>
+        </div>
+	</body>
+    <script src="js/vue.global.js" type="text/javascript"></script>
+    <script src="js/jquery-3.5.4.js" type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="js/client.js" type="text/javascript"></script>
+</html>
