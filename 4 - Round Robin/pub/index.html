@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Round-robin</title>
+</head>
+    <body>
+        <div id="main">
+            <div v-if="!gridReady" v-cloak>
+                <h1>Team input</h1>
+                <div class="center">
+                    <label for="amountOfTeams">Number of Teams: </label>
+                    <input v-model="numberOfTeams" type="text" id="amountOfTeams" placeholder="Enter number of teams"> <br>
+                    <button v-on:click="submitTeams">Submit Bracket</button>
+                </div>
+            </div>
+            <div v-else v-cloak>
+                <h1>Round-robin tournament viewer</h1>
+                <table>
+                    <thead>
+                        <!-- This will number the columns, skipping the first collumn and counting from 0 -->
+                        <th v-for="(item, index) in grid">
+                            <p v-if="index > 0">{{index - 1}}</p>
+                        </th>
+                        <th><p>{{grid.length - 1}}</p></th>
+                    </thead>
+                    <tbody id="mainGrid">
+                        <tr v-for="(item, index1) in grid">
+                            <td>{{index1}}</td>
+                            <!-- click on individual cell to change the game status (color of cell will change with it to!) -->
+                            <td v-for="(item, index2) in grid" v-on:click="changeGameStatus(index1, index2)" id="actualData" v-bind:style='{"background-color":grid[index1][index2].styles}'>
+                                    <p>{{grid[index1][index2].gameStatus}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="center">
+                    <button class="center" v-on:click="clearBracket">Clear Bracket</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/vue.global.js"></script>
+    <script src="js/jquery-3.5.4.js"></script>
+    <script src="js/client.js"></script>
+</html>
