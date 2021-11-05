@@ -1,0 +1,60 @@
+body {
+    background-image: url("img/river.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  img {
+    height: 170px;
+    width: 190px;
+    margin-bottom: 5px;
+  }
+  
+  #actions {
+    float: center;
+  }
+  
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .left {
+    float: left;
+  }
+  
+  .right {
+    float: right;
+  }
+  
+  .onBoardLeft {
+    padding-left: 50px;
+  }
+  
+  .onBoardRight {
+    padding-right: 50px;
+  }
+  
+  span {
+    border: solid black 2px;
+    background-color: whitesmoke;
+  }
+  
+  #message {
+    margin-top: 15px;
+  }
+  
+  span {
+    padding: 5px;
+  }
+  
+  button {
+    margin: 1px;
+    border: none;
+  }
+  
+  .bottom {
+    text-align: center;
+    margin-bottom: 15px;
+  }

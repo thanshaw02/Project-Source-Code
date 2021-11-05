@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title></title>
+    </head>
+      <body>
+        <div id="main">
+          <div class="clearfix"> <!-- Wolf -->
+            <img v-bind:class="{left: wolfIsLeft, onBoardLeft: wolfIsBoardedLeft, onBoardRight: wolfIsBoardedRight, right: wolfIsRight}" src="img/wolf.jpg" alt="The Wolf">
+          </div>
+          <div class="clearfix"> <!-- Goat -->
+            <img v-bind:class="{left: goatIsLeft, onBoardLeft: goatIsBoardedLeft, onBoardRight: goatIsBoardedRight, right: goatIsRight}" src="img/goat.jpg" alt="The Goat">
+          </div>
+          <div class="clearfix"> <!-- Cabbage -->
+            <img v-bind:class="{left: cabbageIsLeft, onBoardLeft: cabbageIsBoardedLeft, onBoardRight: cabbageIsBoardedRight, right: cabbageIsRight}" src="img/cabbage.jpg" alt="The Cabbage">
+          </div>
+          <div class="clearfix"> <!-- Boat -->
+            <img v-bind:hidden="boatIsRight" class="left" src="img/boatLeft.jpg" alt="The Boat">
+            <img v-bind:hidden="boatIsLeft" class="right" src="img/boatRight.jpg" alt="The Boat">
+          </div>
+          <div class="bottom">
+            <button v-on:click="boardCabbage">Move cabbage</button>
+            <button v-on:click="boardGoat">Move goat</button>
+            <button v-on:click="boardWolf">Move wolf</button>
+            <button v-on:click="moveBoat">Move boat</button>
+            <button v-on:click="resetGame">Reset</button>
+          </div>
+          <div class="bottom">
+            <span>{{gameMessage}}</span>
+          </div>
+        </div>
+      </body>
+    <script src="js/vue.global.js"></script>
+    <script src="js/client.js"></script>
+</html> 
