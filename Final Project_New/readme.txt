@@ -1,3 +1,7 @@
+To log in as admin:
+Email: admin@admin.net
+Password: admin
+
 BUGS: ****these are all of the known bugs so far****
   - the message sent to the user who's appointment has been accepted or declined doesn't go away after they have logged in multiple times
     - this is more of a weird "feature" that i don't like than a bug though
