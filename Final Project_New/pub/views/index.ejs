@@ -1,0 +1,111 @@
+<!--
+
+    Used .ejs instead of .html to load in error messages when logging in from my server
+    But had some issues with loading in the proper variables
+    After index.ejs is loaded, it is generated into an html file on the broswer
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <title>Final Project</title>
+    <style>
+        [v-cloak] { display: none; }
+
+        body { background-color: currentColor; }
+
+        .white { color: whitesmoke; }
+
+        .center { text-align: center; }
+    </style>
+</head>
+    <body>
+        <div id="app">
+            <div class="container" v-if="registering" v-cloak>
+                <h1 style="text-align: center; color: whitesmoke;" class="white">Register</h1>
+                <div class="form-group">
+                    <label for="firstName" class="white">Name: </label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" v-model="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="white">Email: </label>
+                    <input type="email" class="form-control" id="email" name="email" v-model="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="white">Password: </label>
+                    <input type="password" class="form-control" id="password" name="password" v-model="registerPassword" required>
+                </div>
+                <button type="submit" class="btn btn-success white" v-on:click="register" :disabled="registerDisabled">Register</button>
+            </div>
+
+            <div class="container" v-if="hasLoggedIn === false && !registering" v-cloak>
+                <h1 style="text-align: center; color: whitesmoke;">Login</h1>
+                <p> <!-- this is only showing after i refresh page after i do an incorrect login, this notation allows me to load data directly from the server  -->
+                    <% if(messages.error) { %>
+                        <%= messages.error %>
+                    <% } %>
+                </p>
+                <div class="form-group">
+                    <label for="email" class="white">Email: </label>
+                    <input type="email" class="form-control" id="email" name="email" v-model="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="white">Password: </label>
+                    <input type="password" class="form-control" id="password" name="password" v-model="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-success" v-on:click="login" :disabled="loginDisabled">Login</button>
+                <button class="btn btn-success ml-2 white" v-on:click="registering = true">Register</button>
+            </div>
+
+            <div class="container" v-if="hasLoggedIn" v-cloak>
+                <h1 style="text-align: center; color: whitesmoke;">Create an Appointment</h1>
+                <h5 v-if="serverMessage !== ''" style="text-align: center; color: whitesmoke;">{{serverMessage}}</h5> <hr v-if="serverMessage !== ''" class="white">
+                <h5 v-if="appointmentStatus !== ''" style="text-align: center; color: whitesmoke;">{{appointmentStatus}}</h5>
+                <div class="form-group">
+                    <label for="date" class="white">Date of Appointment: </label>
+                    <input type="date" class="form-control" id="date" name="date" v-model="dateOfApp" required>
+                </div>
+                <div class="form-group">
+                    <label for="time"  class="white">Time of Appointment: </label>
+                    <input type="time" class="form-control" id="time" name="time" step="300" v-model="timeOfApp" required>
+                </div>
+                <div class="form-group">
+                    <label for="details"  class="white">Appointment Details: </label>
+                    <textarea name="details" class="form-control" id="details" cols="30" rows="10" v-model="appDetails" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success white" v-on:click="submitApp"  :disabled="submitAppDisabled">Submit Appointment</button>
+                <button class="btn btn-success ml-2 white" v-on:click="editApp">Edit Appointment</button>
+                <button class="btn btn-success ml-2 white" v-on:click="logout">Log Out</button>
+            </div>
+            <div class="container" v-if="admin" v-cloak>
+                <!-- use a v-for loop to display all of the appointments currently submited -->
+                <h1 style="text-align: center; color: whitesmoke;">Current Appointments</h1>
+                <div class="card ml-3 mt-3" style="width: 18rem; display: inline-block;" v-for="(item, index) in appointments">
+                    <div class="card-body">
+                      <h5 class="card-title">{{appointments[index].name}}</h5>
+                      <p class="card-text">{{appointments[index].info}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><b>Date:</b> {{appointments[index].date}}</li>
+                      <li class="list-group-item"><b>Time:</b> {{appointments[index].time}}</li>
+                    </ul>
+                    <div class="card-body">
+                      <button class="btn btn btn-outline-dark" v-on:click="acceptApp(index)">Accept</button>
+                      <button class="btn btn btn-outline-dark ml-2" v-on:click="declineApp(index)">Decline</button>
+                    </div>
+                </div>
+                <div class="center mt-4">
+                    <button class="btn btn-success white" v-on:click="adminLogout">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/vue.global.js"></script>
+    <script src="js/jquery-3.5.4.js"></script>
+    <script src="js/client.js"></script>
+</html>
